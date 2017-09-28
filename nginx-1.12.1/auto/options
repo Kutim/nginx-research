@@ -2,7 +2,7 @@
 # Copyright (C) Igor Sysoev
 # Copyright (C) Nginx, Inc.
 
-
+## 1.设置选项对应的 shell 变量以及初始值
 help=no
 
 NGX_PREFIX=
@@ -166,16 +166,16 @@ NGX_CPU_CACHE_LINE=
 NGX_POST_CONF_MSG=
 
 opt=
-
+## 2. 处理每一个选项值，并设置到对应的全局变量中
 for option
 do
     opt="$opt `echo $option | sed -e \"s/\(--[^=]*=\)\(.* .*\)/\1'\2'/\"`"
-
+    # 得到此选项的 value 部分
     case "$option" in
         -*=*) value=`echo "$option" | sed -e 's/[-_a-zA-Z0-9]*=//'` ;;
            *) value="" ;;
     esac
-
+    # 根据option 内容进行匹配，并设置相应的选项
     case "$option" in
         --help)                          help=yes                   ;;
 
@@ -395,8 +395,8 @@ done
 
 
 NGX_CONFIGURE="$opt"
-
-
+## 3. 对选项进行处理
+#  如果有 --help，输出帮助信息
 if [ $help = yes ]; then
 
 cat << END
@@ -578,7 +578,7 @@ if [ ".$NGX_PLATFORM" = ".win32" ]; then
     NGX_WINE=$WINE
 fi
 
-
+# 默认文件路径
 NGX_SBIN_PATH=${NGX_SBIN_PATH:-sbin/nginx}
 NGX_MODULES_PATH=${NGX_MODULES_PATH:-modules}
 NGX_CONF_PATH=${NGX_CONF_PATH:-conf/nginx.conf}
