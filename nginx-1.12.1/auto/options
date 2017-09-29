@@ -5,152 +5,152 @@
 ## 1.设置选项对应的 shell 变量以及初始值
 help=no
 
-NGX_PREFIX=
-NGX_SBIN_PATH=
-NGX_MODULES_PATH=
-NGX_CONF_PREFIX=
-NGX_CONF_PATH=
-NGX_ERROR_LOG_PATH=
-NGX_PID_PATH=
-NGX_LOCK_PATH=
-NGX_USER=
-NGX_GROUP=
-NGX_BUILD=
+NGX_PREFIX=                             # nginx 的安装目录
+NGX_SBIN_PATH=                          # nginx 中 bin 文件夹的安装目录
+NGX_MODULES_PATH=                       # nginx 模块的路径
+NGX_CONF_PREFIX=                        # nginx 配置 conf 的安装目录
+NGX_CONF_PATH=                          # ngnin 配置 nginx.conf 的路径
+NGX_ERROR_LOG_PATH=                     # 错误日志的路径
+NGX_PID_PATH=                           # nginx.pid 的路径
+NGX_LOCK_PATH=                          # nginx.lock 的路径 保证只有一个服务运行
+NGX_USER=                               # 程序运行时的非特权用户
+NGX_GROUP=                              # 程序运行时的费特权用户组
+NGX_BUILD=                              # 设置编译名称，似乎是一个名称而已
 
-CC=${CC:-cc}
+CC=${CC:-cc}                            # 编译器，没有指定使用 cc https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
 CPP=
-NGX_OBJS=objs
+NGX_OBJS=objs                           # 指定编译的目录
 
-NGX_DEBUG=NO
-NGX_CC_OPT=
-NGX_LD_OPT=
-CPU=NO
+NGX_DEBUG=NO                            # 调试开关
+NGX_CC_OPT=                             # cc 编译器的选项
+NGX_LD_OPT=                             # 链接的选项
+CPU=NO                                  # 指定 CPU 类型
 
-NGX_RPATH=NO
+NGX_RPATH=NO                            # 相对路径开关
 
-NGX_TEST_BUILD_DEVPOLL=NO
-NGX_TEST_BUILD_EVENTPORT=NO
-NGX_TEST_BUILD_EPOLL=NO
+NGX_TEST_BUILD_DEVPOLL=NO               # devpoll       http://nginx.org/en/docs/events.html
+NGX_TEST_BUILD_EVENTPORT=NO             # eventport
+NGX_TEST_BUILD_EPOLL=NO                 # epoll
 NGX_TEST_BUILD_SOLARIS_SENDFILEV=NO
 
-NGX_PLATFORM=
-NGX_WINE=
+NGX_PLATFORM=                           # 跨平台
+NGX_WINE=                               # win
 
-EVENT_FOUND=NO
+EVENT_FOUND=NO                          #
 
-EVENT_SELECT=NO
+EVENT_SELECT=NO                         #
 EVENT_POLL=NO
 
-USE_THREADS=NO
+USE_THREADS=NO                          #
 
-NGX_FILE_AIO=NO
+NGX_FILE_AIO=NO                         # 异步 IO
 
-HTTP=YES
+HTTP=YES                                # http 开关
 
-NGX_HTTP_LOG_PATH=
-NGX_HTTP_CLIENT_TEMP_PATH=
-NGX_HTTP_PROXY_TEMP_PATH=
-NGX_HTTP_FASTCGI_TEMP_PATH=
-NGX_HTTP_UWSGI_TEMP_PATH=
-NGX_HTTP_SCGI_TEMP_PATH=
+NGX_HTTP_LOG_PATH=                      # http 日志路径
+NGX_HTTP_CLIENT_TEMP_PATH=              # http 客户端临时路径
+NGX_HTTP_PROXY_TEMP_PATH=               # http 代理临时路径
+NGX_HTTP_FASTCGI_TEMP_PATH=             # http fastcgi 临时路径
+NGX_HTTP_UWSGI_TEMP_PATH=               # http uwsgi 临时路径
+NGX_HTTP_SCGI_TEMP_PATH=                # http scgi 临时路径
 
-HTTP_CACHE=YES
-HTTP_CHARSET=YES
-HTTP_GZIP=YES
-HTTP_SSL=NO
-HTTP_V2=NO
-HTTP_SSI=YES
-HTTP_POSTPONE=NO
-HTTP_REALIP=NO
-HTTP_XSLT=NO
-HTTP_IMAGE_FILTER=NO
-HTTP_SUB=NO
-HTTP_ADDITION=NO
-HTTP_DAV=NO
-HTTP_ACCESS=YES
-HTTP_AUTH_BASIC=YES
-HTTP_AUTH_REQUEST=NO
-HTTP_USERID=YES
-HTTP_SLICE=NO
-HTTP_AUTOINDEX=YES
-HTTP_RANDOM_INDEX=NO
-HTTP_STATUS=NO
-HTTP_GEO=YES
-HTTP_GEOIP=NO
-HTTP_MAP=YES
-HTTP_SPLIT_CLIENTS=YES
-HTTP_REFERER=YES
-HTTP_REWRITE=YES
-HTTP_PROXY=YES
-HTTP_FASTCGI=YES
-HTTP_UWSGI=YES
-HTTP_SCGI=YES
-HTTP_PERL=NO
-HTTP_MEMCACHED=YES
-HTTP_LIMIT_CONN=YES
-HTTP_LIMIT_REQ=YES
-HTTP_EMPTY_GIF=YES
-HTTP_BROWSER=YES
-HTTP_SECURE_LINK=NO
-HTTP_DEGRADATION=NO
-HTTP_FLV=NO
-HTTP_MP4=NO
-HTTP_GUNZIP=NO
-HTTP_GZIP_STATIC=NO
-HTTP_UPSTREAM_HASH=YES
-HTTP_UPSTREAM_IP_HASH=YES
-HTTP_UPSTREAM_LEAST_CONN=YES
-HTTP_UPSTREAM_KEEPALIVE=YES
-HTTP_UPSTREAM_ZONE=YES
+HTTP_CACHE=YES                          # http 缓存开关
+HTTP_CHARSET=YES                        # http_charset_module 设置响应 Content-length ，包含字符集转换
+HTTP_GZIP=YES                           # http_gzip_module  压缩响应
+HTTP_SSL=NO                             # http_ssl_module  提供https 的支持
+HTTP_V2=NO                              # http_v2_module  http 协议 2.0
+HTTP_SSI=YES                            # http_ssi_module  处理响应中的 SSI（server side include）命令，目前还不完善
+HTTP_POSTPONE=NO                        # 暂不清楚
+HTTP_REALIP=NO                          # http_realip_module 从请求头获取 ip
+HTTP_XSLT=NO                            # http_xslt_module  使用xslt 转换 xml 响应
+HTTP_IMAGE_FILTER=NO                    # http_image_filter_module 将图片转为 JPEG、GIF、PNG、WebP 格式
+HTTP_SUB=NO                             # http_sub_module 在响应中的进行替换
+HTTP_ADDITION=NO                        # http_addition_module 在响应前、后添加文本
+HTTP_DAV=NO                             # http_dav_module  通过 WebDAV 协议自动化管理文件
+HTTP_ACCESS=YES                         # http_access_module 限制客户端地址的访问
+HTTP_AUTH_BASIC=YES                     # http_auth_basic_module 使用“HTTP Basic Authentication” 协议验证用户名、密码来限制资源的访问
+HTTP_AUTH_REQUEST=NO                    # http_auth_request_module  基于子请求结果进行客户授权
+HTTP_USERID=YES                         # http_userid_module  给客户端标识设置合适的 cookies
+HTTP_SLICE=NO                           # http_slice_module  将请求划分为子请求
+HTTP_AUTOINDEX=YES                      # http_autoindex_module 处理以 / 结尾的请求，生成目录列表
+HTTP_RANDOM_INDEX=NO                    # http_random_index_module 处理 / 结尾的请求，以目录中的任意一个文件作为 index 文件
+HTTP_STATUS=NO                          # http_status_module 访问状态信息 推荐使用 ngx_http_api_module
+HTTP_GEO=YES                            # http_geo_module  根据客户端 ip 地址生成变量的值
+HTTP_GEOIP=NO                           # http_geoip_module 根据客户端 ip 地址生成变量的值，使用 MaxMind 数据
+HTTP_MAP=YES                            # http_map_module   根据其他变量的值生成变量的值
+HTTP_SPLIT_CLIENTS=YES                  # http_split_clients_module 为A/B 测试生成合适的变量
+HTTP_REFERER=YES                        # http_referer_module 限制无效“referer”头的访问
+HTTP_REWRITE=YES                        # http_rewrite_module 使用正则来重定向请求
+HTTP_PROXY=YES                          # http_proxy_module 允许将请求传递给另一个服务
+HTTP_FASTCGI=YES                        # http_fastcgi_module 允许将请求传递给 FastCGI 服务
+HTTP_UWSGI=YES                          # http_uwsgi_module 允许将请求传递给 uwsgi 服务
+HTTP_SCGI=YES                           # http_scgi_module 允许将请求传递给 scgi 服务
+HTTP_PERL=NO                            # http_perl_module 使用 Perl 实现 location 和变量处理，把 Perl 调用插入到 SSI
+HTTP_MEMCACHED=YES                      # http_memcached_module 用于从缓存服务器获取响应。key 设置在  $memcached_key 变量
+HTTP_LIMIT_CONN=YES                     # http_limit_conn_module 根据定义的 key 限制连接数
+HTTP_LIMIT_REQ=YES                      # http_limit_req_module 根据定义的 key 限制请求处理速率
+HTTP_EMPTY_GIF=YES                      # http_empty_gif_module 单像素透明 GIF
+HTTP_BROWSER=YES                        # http_browser_module 根据请求头中“User-Agent”生成变量的值
+HTTP_SECURE_LINK=NO                     # http_secure_link_module 检查连接真实性、防止资源非法访问、限制连接时间
+HTTP_DEGRADATION=NO                     # http_degradation_module 内存不足时，返回的错误页面    ops 官方文档中没找见
+HTTP_FLV=NO                             # http_flv_module 服务器端伪流提供 flv 文件支持
+HTTP_MP4=NO                             # http_mp4_module 服务器端伪流提供 mp4 文件支持
+HTTP_GUNZIP=NO                          # http_gunzip_module 客户端不支持 gzip 是可以解码
+HTTP_GZIP_STATIC=NO                     # http_gzip_static_module 允许发送预压缩的.gz 文件
+HTTP_UPSTREAM_HASH=YES                  # ngx_http_upstream_module 中 hash  以 key 的哈希值负载均衡
+HTTP_UPSTREAM_IP_HASH=YES               # ngx_http_upstream_module 中 ip_hash 以 ip 来负载均衡
+HTTP_UPSTREAM_LEAST_CONN=YES            # ngx_http_upstream_module 中 least_conn  考虑最小连接
+HTTP_UPSTREAM_KEEPALIVE=YES             # ngx_http_upstream_module 中 keepalive
+HTTP_UPSTREAM_ZONE=YES                  # ngx_http_upstream_module 中 zone  定义共享内存的名称、大小
 
 # STUB
-HTTP_STUB_STATUS=NO
+HTTP_STUB_STATUS=NO                     # ngx_http_stub_status_module 访问基本状态信息
 
-MAIL=NO
-MAIL_SSL=NO
-MAIL_POP3=YES
-MAIL_IMAP=YES
-MAIL_SMTP=YES
+MAIL=NO                                 # ngx_mail_core_module 中 mail
+MAIL_SSL=NO                             # ngx_mail_ssl_module 提供SSL/TLS 协议的邮件代理
+MAIL_POP3=YES                           # ngx_mail_pop3_module
+MAIL_IMAP=YES                           # ngx_mail_imap_module
+MAIL_SMTP=YES                           # ngx_mail_smtp_module
 
-STREAM=NO
-STREAM_SSL=NO
-STREAM_REALIP=NO
-STREAM_LIMIT_CONN=YES
-STREAM_ACCESS=YES
-STREAM_GEO=YES
-STREAM_GEOIP=NO
-STREAM_MAP=YES
-STREAM_SPLIT_CLIENTS=YES
-STREAM_RETURN=YES
-STREAM_UPSTREAM_HASH=YES
-STREAM_UPSTREAM_LEAST_CONN=YES
-STREAM_UPSTREAM_ZONE=YES
-STREAM_SSL_PREREAD=NO
+STREAM=NO                               # ngx_stream_core_module 中 strem
+STREAM_SSL=NO                           # ngx_stream_ssl_module 流支持 SSL/TLS
+STREAM_REALIP=NO                        # ngx_stream_realip_module 从代理协议头获得 客户ip
+STREAM_LIMIT_CONN=YES                   # ngx_stream_limit_conn_module 根据key 限制连接数
+STREAM_ACCESS=YES                       # ngx_stream_access_module 限制某些客户端访问
+STREAM_GEO=YES                          # ngx_stream_geo_module 根据客户端 ip 生成变量值
+STREAM_GEOIP=NO                         # ngx_stream_geo_module 根据客户端 ip 生成变量值，使用 MaxMind 数据库
+STREAM_MAP=YES                          # ngx_stream_map_module 根据其他变量生成变量值
+STREAM_SPLIT_CLIENTS=YES                # ngx_stream_split_clients_module 生成A/B 测试的变量
+STREAM_RETURN=YES                       # ngx_stream_return_module 允许发送一个特殊值给客户端，然后关闭连接
+STREAM_UPSTREAM_HASH=YES                # ngx_stream_upstream_module 中hash
+STREAM_UPSTREAM_LEAST_CONN=YES          # ngx_stream_upstream_module 中least_conn
+STREAM_UPSTREAM_ZONE=YES                # ngx_stream_upstream_module 中zone
+STREAM_SSL_PREREAD=NO                   # ngx_stream_ssl_preread_module 不必终端SSL/TLS 连接从 ClientHello 中抽取信息
 
 DYNAMIC_MODULES=
 
-NGX_ADDONS=
+NGX_ADDONS=                             # ngx 附加模块
 NGX_ADDON_DEPS=
-DYNAMIC_ADDONS=
+DYNAMIC_ADDONS=                         # 添加的动态模块
 
-NGX_COMPAT=NO
+NGX_COMPAT=NO                           # 动态模块兼容性
 
-USE_PCRE=NO
-PCRE=NONE
-PCRE_OPT=
-PCRE_CONF_OPT=
-PCRE_JIT=NO
+USE_PCRE=NO                             # 使用 pcre
+PCRE=NONE                               #
+PCRE_OPT=                               # 设置 pcre 的选项
+PCRE_CONF_OPT=                          #
+PCRE_JIT=NO                             # pcre jit
 
-USE_OPENSSL=NO
+USE_OPENSSL=NO                          # 使用 openssl
 OPENSSL=NONE
 
-USE_ZLIB=NO
+USE_ZLIB=NO                             # 使用 zlib
 ZLIB=NONE
-ZLIB_OPT=
-ZLIB_ASM=NO
+ZLIB_OPT=                               # 设置 zlib 选项
+ZLIB_ASM=NO                             # 使用与 CPU兼容的 源码
 
-USE_PERL=NO
-NGX_PERL=perl
+USE_PERL=NO                             # 使用 Perl
+NGX_PERL=perl                           #
 
 USE_LIBXSLT=NO
 USE_LIBGD=NO
