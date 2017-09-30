@@ -3,6 +3,8 @@
 # Copyright (C) Nginx, Inc.
 
 
+# 将 $have 变量的值，宏定义为 1，输出到 ngx_auto_config.h
+
 cat << END >> $NGX_AUTO_CONFIG_H
 
 #ifndef $have
