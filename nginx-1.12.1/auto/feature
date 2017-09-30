@@ -14,17 +14,21 @@ END
 
 ngx_found=no
 
+# 将名称从小写转大写
 if test -n "$ngx_feature_name"; then
     ngx_have_feature=`echo $ngx_feature_name \
                    | tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ`
 fi
 
+# 将头文件所在目录转为 -I 选项
 if test -n "$ngx_feature_path"; then
     for ngx_temp in $ngx_feature_path; do
         ngx_feature_inc_path="$ngx_feature_inc_path -I $ngx_temp"
     done
 fi
 
+
+# 生成 autotest.c
 cat << END > $NGX_AUTOTEST.c
 
 #include <sys/types.h>
@@ -38,15 +42,16 @@ int main(void) {
 
 END
 
-
+# 编译 autotest.c
 ngx_test="$CC $CC_TEST_FLAGS $CC_AUX_FLAGS $ngx_feature_inc_path \
           -o $NGX_AUTOTEST $NGX_AUTOTEST.c $NGX_TEST_LD_OPT $ngx_feature_libs"
 
 ngx_feature_inc_path=
 
+# 生成可执行文件
 eval "/bin/sh -c \"$ngx_test\" >> $NGX_AUTOCONF_ERR 2>&1"
 
-
+# 测试是否有某个功能
 if [ -x $NGX_AUTOTEST ]; then
 
     case "$ngx_feature_run" in
