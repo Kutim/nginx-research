@@ -2,10 +2,19 @@
 # Copyright (C) Igor Sysoev
 # Copyright (C) Nginx, Inc.
 
+# 定义不同功能或系统所需要的文件的变量
+# 根据功能分为 CORE、EVENT、UNIX、thread、HTTP 等
+# 每一个功能将会由四个变量组成
+# _MODULES ：表示此功能相关的模块，最终会输出到 ngx_modules.c 文件中，即动态生成需要编译到nginx中的模块
+# _INCS: 表示此功能依赖的源码目录，用于寻找头文件，在编译选项中，会出现在 “-I”
+# _DEPS: 显示指明在 Makefile 中需要依赖的文件名，即编译时，需要检查这些文件的更新时间
+# _SRCS: 表示需要此功能编译需要的源文件
 
 CORE_MODULES="ngx_core_module ngx_errlog_module ngx_conf_module"
 
 CORE_INCS="src/core"
+
+# 与src/core 源码对比 少了 ngx_regex.h  ngx_thread_pool.h（放在了 thread）
 
 CORE_DEPS="src/core/nginx.h \
            src/core/ngx_config.h \
@@ -43,6 +52,7 @@ CORE_DEPS="src/core/nginx.h \
            src/core/ngx_proxy_protocol.h \
            src/core/ngx_syslog.h"
 
+# 与 src/core 相比，少了regex.c ngx_thread_pool.c（放在了 thread）
 
 CORE_SRCS="src/core/nginx.c \
            src/core/ngx_log.c \
@@ -85,12 +95,15 @@ EVENT_MODULES="ngx_events_module ngx_event_core_module"
 
 EVENT_INCS="src/event src/event/modules"
 
+
+# 与src/event 相比，少 ngx_event_openssl.h
 EVENT_DEPS="src/event/ngx_event.h \
             src/event/ngx_event_timer.h \
             src/event/ngx_event_posted.h \
             src/event/ngx_event_connect.h \
             src/event/ngx_event_pipe.h"
 
+# 与src/event 相比， 少了 ngx_event_openssl.c、ngx_event_openssl_stapling
 EVENT_SRCS="src/event/ngx_event.c \
             src/event/ngx_event_timer.c \
             src/event/ngx_event_posted.c \
@@ -98,6 +111,8 @@ EVENT_SRCS="src/event/ngx_event.c \
             src/event/ngx_event_connect.c \
             src/event/ngx_event_pipe.c"
 
+
+# 以下为 I/O 多路复用的方式 devpoll、epoll、eventport、kqueue、poll、select
 
 SELECT_MODULE=ngx_select_module
 SELECT_SRCS=src/event/modules/ngx_select_module.c
@@ -118,11 +133,15 @@ EVENTPORT_SRCS=src/event/modules/ngx_eventport_module.c
 EPOLL_MODULE=ngx_epoll_module
 EPOLL_SRCS=src/event/modules/ngx_epoll_module.c
 
+# ops ！ 没有找到文件
 IOCP_MODULE=ngx_iocp_module
 IOCP_SRCS=src/event/modules/ngx_iocp_module.c
 
+# 底层的 aio 操作
 FILE_AIO_SRCS="src/os/unix/ngx_file_aio_read.c"
 LINUX_AIO_SRCS="src/os/unix/ngx_linux_aio_read.c"
+
+# 依据系统区分的底层实现
 
 UNIX_INCS="$CORE_INCS $EVENT_INCS src/os/unix"
 
@@ -160,7 +179,7 @@ UNIX_SRCS="$CORE_SRCS $EVENT_SRCS \
             src/os/unix/ngx_errno.c \
             src/os/unix/ngx_alloc.c \
             src/os/unix/ngx_files.c \
-            src/os/unix/ngx_socket.c \
+            src/os/unix/ngx_socket.c \·
             src/os/unix/ngx_recv.c \
             src/os/unix/ngx_readv_chain.c \
             src/os/unix/ngx_udp_recv.c \
@@ -252,4 +271,5 @@ NGX_WIN32_ICONS="src/os/win32/nginx.ico"
 NGX_WIN32_RC="src/os/win32/nginx.rc"
 
 
+# http 文件缓存
 HTTP_FILE_CACHE_SRCS=src/http/ngx_http_file_cache.c
