@@ -2,6 +2,7 @@
 # Copyright (C) Igor Sysoev
 # Copyright (C) Nginx, Inc.
 
+# 根据 have 和 value 的值生成相应的宏，表示有次功能
 
 cat << END >> $NGX_AUTO_CONFIG_H
 
