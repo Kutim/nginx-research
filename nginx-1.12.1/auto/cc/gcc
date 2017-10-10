@@ -7,16 +7,18 @@
 #     3.0.4, 3.1.1, 3.2.3, 3.3.2, 3.3.3, 3.3.4, 3.4.0, 3.4.2
 #     4.0.0, 4.0.1, 4.1.0
 
-
+# gcc -v 获取提示信息，然后将出错信息通过管道符使用 grep 抓取
 NGX_GCC_VER=`$CC -v 2>&1 | grep 'gcc version' 2>&1 \
                          | sed -e 's/^.* version \(.*\)/\1/'`
 
 echo " + gcc version: $NGX_GCC_VER"
 
+# 生成有 编译器 gcc 版本 的宏指令
 have=NGX_COMPILER value="\"gcc $NGX_GCC_VER\"" . auto/define
 
 
 # Solaris 7's /usr/ccs/bin/as does not support "-pipe"
+# 检测是否支持 -pipe 选项
 
 CC_TEST_FLAGS="-pipe"
 
@@ -35,6 +37,7 @@ if [ $ngx_found = yes ]; then
     PIPE="-pipe"
 fi
 
+# 根据 cpu 来确定是否使用 -mcpu=v9 
 
 case "$NGX_MACHINE" in
 
@@ -45,7 +48,7 @@ case "$NGX_MACHINE" in
 
 esac
 
-
+# 依据 cpu 而来的gcc 优化参数
 # optimizations
 
 #NGX_GCC_OPT="-O2"
@@ -122,12 +125,15 @@ esac
 
 CFLAGS="$CFLAGS $PIPE $CPU_OPT"
 
+# 设置 pcre 的优化选项
+
 if [ ".$PCRE_OPT" = "." ]; then
     PCRE_OPT="-O2 -fomit-frame-pointer $PIPE $CPU_OPT"
 else
     PCRE_OPT="$PCRE_OPT $PIPE"
 fi
 
+# 设置 zlib 的优化选项
 if [ ".$ZLIB_OPT" = "." ]; then
     ZLIB_OPT="-O2 -fomit-frame-pointer $PIPE $CPU_OPT"
 else
