@@ -2,9 +2,10 @@
 # Copyright (C) Igor Sysoev
 # Copyright (C) Nginx, Inc.
 
-
+# options 脚本中指定的 cc
 LINK="\$(CC)"
 
+# 编译 c 的选项 和 后缀
 MAIN_LINK=
 MODULE_LINK="-shared"
 
@@ -34,8 +35,11 @@ ngx_spacer=
 ngx_long_regex_cont=$ngx_regex_cont
 ngx_long_cont=$ngx_cont
 
+# c 编译器的确定
 . auto/cc/name
 
+
+# 根据 CPU 生成编译器的选项，以及优化
 if test -n "$CFLAGS"; then
 
     CC_TEST_FLAGS="$CFLAGS $NGX_CC_OPT"
@@ -145,7 +149,7 @@ CFLAGS="$CFLAGS $NGX_CC_OPT"
 NGX_TEST_LD_OPT="$NGX_LD_OPT"
 
 if [ "$NGX_PLATFORM" != win32 ]; then
-
+     # 确认是否支持 --with-ld-opt
     if test -n "$NGX_LD_OPT"; then
         ngx_feature=--with-ld-opt=\"$NGX_LD_OPT\"
         ngx_feature_name=
@@ -163,7 +167,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
         fi
     fi
 
-
+    # 确认是否支持 -Wl,-E 
     ngx_feature="-Wl,-E switch"
     ngx_feature_name=
     ngx_feature_run=no
@@ -177,7 +181,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
         MAIN_LINK="-Wl,-E"
     fi
 
-
+    # 确认是否支持 内置的原子操作
     ngx_feature="gcc builtin atomic operations"
     ngx_feature_name=NGX_HAVE_GCC_ATOMIC
     ngx_feature_run=yes
